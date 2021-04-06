@@ -12,12 +12,27 @@
             {%- if site.author -%}
               {{ site.author | escape }}
             {%- else -%}
-              {{ site.title | escape }}
+              {%- if site.data.languages[page.lang] -%}
+                {{ site.title | escape }}
+              {%- else -%}
+                {{ site.data.languages[page.lang].header | escape }}
+              {%- endif -%}
             {%- endif -%}
             </li>
             {%- if site.email -%}
             <li><a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a></li>
             {%- endif -%}
+            
+          <li class="languages">
+            {%- for lang_hash in site.data.languages -%}
+              {% assign lang = lang_hash[1]%}
+              {% if page.url contains page.lang %}
+                <a href='{{ page.url | relative_url | replace: page.lang, lang.code" }}'> {{ lang.friendly | escape }} </a><br>
+              {% else %}
+                <a href='/{{lang.code}}'> {{ lang.friendly | escape }} </a><br>
+              {% endif %}
+            {%- endfor -%}
+          </li>
         </ul>
       </div>
 
@@ -26,7 +41,13 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>{{- site.description | escape -}}</p>
+        <p>
+          {%- if site.data.languages[page.lang] -%}
+            {{- site.data.languages[page.lang].description | escape -}}
+          {%- else-%}
+            {{- site.description | escape -}}
+          {%- endif -%}
+          </p>
       </div>
     </div>
 
