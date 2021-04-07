@@ -5,3 +5,5 @@ date:   2021-04-06 00:00:00 -0500
 lang: it
 categories: it
 ---
+
+La prima domanda per chiedi è perchè. Perchè sto facendo quello sito, e quello pagina di meme. 
